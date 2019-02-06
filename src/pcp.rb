@@ -68,6 +68,14 @@ end
 raise 'Enter string for password, d or e for mode, and string for file name' unless ARGV.count >= 3
 password, mode, file = ARGV[0].to_s, ARGV[1].to_s, ARGV[2].to_s
 
+class NoModeError < StandardError
+  puts "there's only two modes, (d) = decrypt, (e) = encrypt"
+end
+
+unless mode == "d" || mode == "e"
+  raise NoModeError::new
+end
+
 key = GenerateKey(password)
 
 chararr = loadFile(file)
